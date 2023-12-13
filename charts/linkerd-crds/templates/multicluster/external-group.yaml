@@ -63,4 +63,51 @@ spec:
                         protocol:
                           description: "Protocol"
                           type: string
-
+              probe:
+                oneOf:
+                - not:
+                    anyOf:
+                    - required:
+                      - httpGet
+                - required:
+                  - httpGet
+                properties:
+                  httpGet:
+                    properties:
+                      host:
+                        type: string
+                      httpHeaders:
+                        items:
+                          properties:
+                            name:
+                              type: string
+                            value:
+                              type: string
+                          type: object
+                        type: array
+                      path:
+                        type: string
+                      port:
+                        type: integer
+                      scheme:
+                        type: string
+                    required:
+                    - port
+                    type: object
+                  initialDelaySeconds:
+                    format: int32
+                    type: integer
+                  periodSeconds:
+                    format: int32
+                    type: integer
+                  successThreshold:
+                    format: int32
+                    type: integer
+                  failureThreshold:
+                    format: int32
+                    type: integer
+                  timeoutSeconds:
+                    description: Number of seconds after which the probe times out.
+                    format: int32
+                    type: integer
+                type: object
